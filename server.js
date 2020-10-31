@@ -25,8 +25,8 @@ app.get("/messages", function (request, response) {
   response.json(messages);
 });
 // Read only the most recent 10 messages
-app.get('/messages/latest', function (req, res){
-  const recentMessages = messages.filter(i => i.id <= 10);
+app.get("/messages/latest", function (req, res) {
+  const recentMessages = messages.filter((i) => i.id <= 10);
   res.send(recentMessages);
 });
 
@@ -55,14 +55,15 @@ app.post("/messages", function (request, response) {
 });
 
 app.get("/messages/:id", function (request, response) {
-  let id=request.params.id;
-  let foundMessage=messages.find(item => item.id ==id)
+  let id = request.params.id;
+  let foundMessage = messages.find((item) => item.id == id);
   response.json(foundMessage);
-  
-  app.delete("/messages/:id", function (request, response) {
-const {id} = request.params;
-messages= messages.filter((message) => message.id !=id)
-response.json(messages);
-  })
-  app.listen(port);
-  console.log("Port listening")
+});
+app.delete("/messages/:id", function (request, response) {
+  const { id } = request.params;
+  messages = messages.filter((message) => message.id != id);
+  response.json(messages);
+});
+const listener = app.listen(process.env.PORT || 3000, function () {
+  console.log("Your app is listening on port " + listener.address().port);
+});
